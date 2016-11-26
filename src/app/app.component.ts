@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import * as D3 from 'd3/index';
+import './rxjs-operators';
 
 import { TweetService } from './shared/tweet.service';
 
@@ -19,6 +20,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.setSearchTerm();
     this.connectToTweetStream();
     this.buildSVG();
   }
@@ -43,5 +45,13 @@ export class AppComponent implements OnInit {
         },
         error =>  this.errorMessage = <any>error
       );
+  }
+
+  setSearchTerm() {
+    this._tweetService.setSearchTerm()
+      .subscribe(
+        () => console.log('search term set'),
+        error =>  this.errorMessage = <any>error
+      )
   }
 }
