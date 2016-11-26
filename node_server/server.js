@@ -27,8 +27,10 @@ var server = http.createServer(app).listen(port, function() {
 
 var io = require('socket.io').listen(server);
 
-app.get('/stream', function(req, res, next) {
-  twitter.stream('statuses/filter', {track: '#javascript'}, function(stream) {
+app.get('/stream/:searchTerm', function(req, res, next) {
+  var searchTerm = req.params.searchTerm
+
+  twitter.stream('statuses/filter', {track: searchTerm}, function(stream) {
     stream.on('data', function(tweet) {
       io.emit('tweet', tweet.text);
     });

@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.setSearchTerm();
+    this.setSearchTerm('javascript');
     this.connectToTweetStream();
     this.buildSVG();
   }
@@ -47,8 +47,8 @@ export class AppComponent implements OnInit {
       );
   }
 
-  setSearchTerm() {
-    this._tweetService.setSearchTerm()
+  setSearchTerm(searchTerm) {
+    this._tweetService.setSearchTerm(searchTerm)
       .subscribe(
         () => console.log('search term set'),
         error =>  this.errorMessage = <any>error

@@ -23,8 +23,8 @@ export class TweetService {
     return observable;
   }
 
-  setSearchTerm(): Observable<any> {
-    return this._http.get(`${this.url}/stream`)
+  setSearchTerm(searchTerm: string): Observable<any> {
+    return this._http.get(`${this.url}/stream/${searchTerm}`)
       .map(this.extractData)
       .catch(this.handleError);
   }
