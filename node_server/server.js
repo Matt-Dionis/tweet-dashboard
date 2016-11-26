@@ -30,7 +30,7 @@ var io = require('socket.io').listen(server);
 app.get('/stream', function(req, res, next) {
   twitter.stream('statuses/filter', {track: '#javascript'}, function(stream) {
     stream.on('data', function(tweet) {
-      io.emit('tweet', tweet);
+      io.emit('tweet', tweet.text);
     });
 
     stream.on('error', function(error) {
