@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer } from '@angular/core';
 import * as D3 from 'd3/index';
 import './rxjs-operators';
 
@@ -6,42 +6,33 @@ import { TweetService } from './shared/tweet.service';
 
 @Component({
   selector: 'app-root',
-  template: '<ng-content></ng-content>',
+  templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
   errorMessage: string;
   host;
-  svg;
-  tweetCount: number = 0;
+  streamContainer;
+  term: string;
 
-  constructor (private element: ElementRef, private _tweetService: TweetService) {
-    this.host = D3.select(this.element.nativeElement);
+  constructor (private _element: ElementRef, private _tweetService: TweetService) {
+    this.host = D3.select(this._element.nativeElement);
   }
 
   ngOnInit() {
-    this.setSearchTerm('javascript');
-    this.connectToTweetStream();
     this.buildSVG();
+    this.connectToTweetStream();
   }
 
   buildSVG(): void {
-    this.host.html('');
-    this.svg = this.host.append('svg')
-      .attr('width', '1200')
-      .attr('height', '800')
-      .append('g')
-      .attr('transform', 'translate(40, 40)');
+    this.streamContainer = this.host.append('div');
   }
 
   connectToTweetStream() {
     this._tweetService.connectToStream()
       .subscribe(
         tweet => {
-          this.svg.append('text')
-            .text(tweet)
-            .attr('y', this.tweetCount * 20);
-          this.tweetCount++;
+          this.streamContainer.append('p').html(tweet);
         },
         error =>  this.errorMessage = <any>error
       );
