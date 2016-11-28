@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import * as D3 from 'd3/index';
 import './rxjs-operators';
 
