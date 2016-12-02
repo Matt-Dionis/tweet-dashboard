@@ -8,10 +8,10 @@ var port = process.env.PORT || 3000;
 var router = express.Router();
 var staticRoot = __dirname;
 var twitter = new twit({
-  consumer_key: TWITTER_CONSUMER_KEY,
-  consumer_secret: TWITTER_CONSUMER_SECRET,
-  access_token_key: TWITTER_ACCESS_TOKEN_KEY,
-  access_token_secret: TWITTER_ACCESS_TOKEN_SECRET
+  consumer_key: 'ANwrinas6EGD447OEMsV1vKq8',
+  consumer_secret: 'RA0zvfXiwpn07mvlKOIKQoENRQTcl4nMRwA2evuSjiec55c3cE',
+  access_token_key: '327390939-8u4F3jZylcPiVDbAHCXZHWXJMKkef1wdoaZLEr4i',
+  access_token_secret: '3DFXUCHXOMJRwZrbrndymFtBe2haCcju62T4J6rBt6Tql'
 });
 
 app.set('port', (port));
@@ -31,8 +31,19 @@ app.get('/stream/:searchTerm', function(req, res, next) {
   var searchTerm = req.params.searchTerm
 
   twitter.stream('statuses/filter', {track: searchTerm}, function(stream) {
-    stream.on('data', function(tweet) {
-      io.emit('tweet', tweet.text);
+    stream.on('data', function(data) {
+      data.location = data.geo ? data.geo.coordinates : [];
+      var tweet = {
+        created_at: data.created_at,
+        text: data.text,
+        username: data.user.screen_name,
+        followers_count: data.user.followers_count,
+        following_count: data.user.friends_count,
+        statuses_count: data.user.statuses_count,
+        profile_image_url: data.user.profile_image_url,
+        coordinates: data.location
+      };
+      io.emit('tweet', tweet);
     });
 
     stream.on('error', function(error) {
