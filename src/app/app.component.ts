@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import * as D3 from 'd3/index';
 import './rxjs-operators';
 
+import { Tweet } from './shared/tweet';
 import { TweetService } from './shared/tweet.service';
 
 @Component({
@@ -14,6 +15,7 @@ export class AppComponent implements OnInit {
   host;
   streamContainer;
   term: string;
+  tweets: Tweet[] = [];
 
   constructor (private _element: ElementRef, private _tweetService: TweetService) {
     this.host = D3.select(this._element.nativeElement);
@@ -32,9 +34,9 @@ export class AppComponent implements OnInit {
     this._tweetService.connectToStream()
       .subscribe(
         tweet => {
-          this.streamContainer.append('p').html(tweet);
+          this.tweets.push(tweet as Tweet);
         },
-        error =>  this.errorMessage = <any>error
+        error => this.errorMessage = <any>error
       );
   }
 
