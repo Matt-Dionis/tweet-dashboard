@@ -1,10 +1,12 @@
-<div *ngFor="let tweet of tweets">
-  <p>{{tweet.created_at | date: 'medium'}}</p>
-  <p>{{tweet.text}}</p>
-  <a href="http://twitter.com/{{tweet.username}}">@{{tweet.username}}</a>
-  <p>Followers: {{tweet.followers_count}}</p>
-  <p>Following: {{tweet.following_count}}</p>
-  <p>Tweets: {{tweet.statuses_count}}</p>
-  <img [src]="tweet.profile_image_url">
-  <p *ngIf="tweet.coordinates.length > 0">{{tweet.coordinates[0]}}, {{tweet.coordinates[1]}}</p>
+<div *ngFor="let tweet of tweets; let i = index" id="tweet-card">
+  <md-card *ngIf="i > tweets.length - 10">
+    <md-card-header>
+      <img md-card-avatar [src]="tweet.profile_image_url">
+      <md-card-title><a href="http://twitter.com/{{tweet.username}}" target="_blank">@{{tweet.username}}</a></md-card-title>
+      <md-card-subtitle>{{tweet.created_at | date: 'medium'}}</md-card-subtitle>
+    </md-card-header>
+    <md-card-content>
+      <p>{{tweet.text}}</p>
+    </md-card-content>
+  </md-card>
 </div>
