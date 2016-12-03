@@ -1,0 +1,10 @@
+<div *ngFor="let tweet of tweets">
+  <p>{{tweet.created_at | date: 'medium'}}</p>
+  <p>{{tweet.text}}</p>
+  <a href="http://twitter.com/{{tweet.username}}">@{{tweet.username}}</a>
+  <p>Followers: {{tweet.followers_count}}</p>
+  <p>Following: {{tweet.following_count}}</p>
+  <p>Tweets: {{tweet.statuses_count}}</p>
+  <img [src]="tweet.profile_image_url">
+  <p *ngIf="tweet.coordinates.length > 0">{{tweet.coordinates[0]}}, {{tweet.coordinates[1]}}</p>
+</div>

@@ -4,11 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { TweetComponent } from './tweetComponent/tweet.component';
 import { TweetService } from './shared/tweet.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TweetComponent
   ],
   imports: [
     BrowserModule,
