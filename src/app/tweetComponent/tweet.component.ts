@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { Tweet } from '../shared/tweet';
+import { TwitterState } from '../shared/twitterState';
 
 @Component({
   selector: 'tweet-component',
@@ -9,5 +10,5 @@ import { Tweet } from '../shared/tweet';
 })
 export class TweetComponent {
   @Input()
-  tweets: Tweet[];
+  twitterState: TwitterState;
 }
