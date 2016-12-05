@@ -11,4 +11,14 @@ import { TwitterState } from '../shared/twitterState';
 export class TweetComponent {
   @Input()
   twitterState: TwitterState;
+  latestTweets: Tweet[];
+
+  ngOnChanges() {
+    if (this.twitterState.tweets) {
+      this.twitterState.tweets.sort(function(a, b) {
+        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+      });
+      this.latestTweets = this.twitterState.tweets.slice(0, 10);
+    }
+  }
 }

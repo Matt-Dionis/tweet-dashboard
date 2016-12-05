@@ -1,4 +1,4 @@
-<div *ngFor="let tweet of twitterState.tweets; let i = index" id="tweet-card">
+<div *ngFor="let tweet of latestTweets">
   <md-card>
     <md-card-header>
       <img md-card-avatar [src]="tweet.profile_image_url">
