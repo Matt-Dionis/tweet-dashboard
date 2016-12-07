@@ -9,10 +9,10 @@ var port = process.env.PORT || 3000;
 var router = express.Router();
 var staticRoot = __dirname;
 var twitter = new twit({
-  consumer_key: 'ANwrinas6EGD447OEMsV1vKq8',
-  consumer_secret: 'RA0zvfXiwpn07mvlKOIKQoENRQTcl4nMRwA2evuSjiec55c3cE',
-  access_token_key: '327390939-8u4F3jZylcPiVDbAHCXZHWXJMKkef1wdoaZLEr4i',
-  access_token_secret: '3DFXUCHXOMJRwZrbrndymFtBe2haCcju62T4J6rBt6Tql'
+  consumer_key: CONSUMER_KEY,
+  consumer_secret: CONSUMER_SECRET,
+  access_token_key: ACCESS_TOKEN_KEY,
+  access_token_secret: ACCESS_TOKEN_SECRET
 });
 
 app.set('port', (port));

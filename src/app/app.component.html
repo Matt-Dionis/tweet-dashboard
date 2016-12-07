@@ -1,12 +1,16 @@
 <label for="term">Track Tweets containing</label>
 <input type="text" id="term" name="term" [(ngModel)]="term" placeholder="search term" required>
 <button (click)="setSearchTerm(term)">Search</button>
-<div id="scatterplot">
-  <md-card>
-    <scatterplot-component [twitterState]="twitterState"></scatterplot-component>
-  </md-card>
-  <md-card>
-    <map-component></map-component>
-  </md-card>
+<div class="container">
+  <div id="scatterplot">
+    <md-card>
+      <scatterplot-component [twitterState]="twitterState"></scatterplot-component>
+    </md-card>
+  </div>
+  <div id="map">
+    <md-card>
+      <map-component></map-component>
+    </md-card>
+  </div>
 </div>
 <tweet-component [twitterState]="twitterState"></tweet-component>
