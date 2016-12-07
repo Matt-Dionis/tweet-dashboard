@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
+import { MapService } from './shared/map.service';
 import { ScatterplotComponent } from './scatterplotComponent/scatterplot.component';
 import { TweetComponent } from './tweetComponent/tweet.component';
 import { TweetService } from './shared/tweet.service';
@@ -21,7 +22,7 @@ import { TweetService } from './shared/tweet.service';
     HttpModule,
     MaterialModule.forRoot()
   ],
-  providers: [TweetService],
+  providers: [MapService, TweetService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,6 +4,7 @@ var path = require('path');
 var twit = require('twitter');
 
 var app = express();
+var mapData = require('./us-states.json');
 var port = process.env.PORT || 3000;
 var router = express.Router();
 var staticRoot = __dirname;
@@ -50,4 +51,8 @@ app.get('/stream/:searchTerm', function(req, res, next) {
       throw error;
     });
   });
+});
+
+app.get('/mapData', function(req, res) {
+  res.status(200).json({data: mapData});
 });
