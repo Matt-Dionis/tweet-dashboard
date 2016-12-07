@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
+import { MapComponent } from './mapComponent/map.component';
 import { MapService } from './shared/map.service';
 import { ScatterplotComponent } from './scatterplotComponent/scatterplot.component';
 import { TweetComponent } from './tweetComponent/tweet.component';
@@ -13,6 +14,7 @@ import { TweetService } from './shared/tweet.service';
 @NgModule({
   declarations: [
     AppComponent,
+    MapComponent,
     ScatterplotComponent,
     TweetComponent
   ],
