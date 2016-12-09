@@ -2,6 +2,7 @@ import { Component, ElementRef, Input } from '@angular/core';
 import * as D3 from 'd3/index';
 
 import { Tweet } from '../shared/tweet';
+import { TwitterState } from '../shared/twitterState';
 
 @Component({
   selector: 'scatterplot-component',
@@ -10,7 +11,7 @@ import { Tweet } from '../shared/tweet';
 })
 export class ScatterplotComponent {
   @Input()
-  twitterState: any;
+  twitterState: TwitterState;
   height;
   host;
   htmlElement: HTMLElement;
