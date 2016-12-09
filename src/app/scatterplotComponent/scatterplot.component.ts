@@ -93,42 +93,22 @@ export class ScatterplotComponent {
         .text('Following');
   }
 
-  getMaxX() {
-    let followers_counts = [];
+  getMax(metric) {
+    let metricArray = [];
     if (this.twitterState.tweets) {
       this.twitterState.tweets.forEach((tweet) => {
-        followers_counts.push(tweet.followers_count);
+        metricArray.push(tweet[metric]);
       });
-      return D3.max(followers_counts);
-    }
-  }
-
-  getMaxY() {
-    let following_counts = [];
-    if (this.twitterState.tweets) {
-      this.twitterState.tweets.forEach((tweet) => {
-        following_counts.push(tweet.following_count);
-      });
-      return D3.max(following_counts);
-    }
-  }
-
-  getMaxZ() {
-    let statuses_counts = [];
-    if (this.twitterState.tweets) {
-      this.twitterState.tweets.forEach((tweet) => {
-        statuses_counts.push(tweet.statuses_count);
-      });
-      return D3.max(statuses_counts);
+      return D3.max(metricArray);
     }
   }
 
   populate() {
     if (this.twitterState.tweets) {
       this.twitterState.tweets.forEach((tweet: Tweet) => {
-        this.xScale.domain([0, this.getMaxX()]);
-        this.yScale.domain([0, this.getMaxY()]);
-        this.zScale.domain([0, this.getMaxZ()]);
+        this.xScale.domain([0, this.getMax('followers_count')]);
+        this.yScale.domain([0, this.getMax('following_count')]);
+        this.zScale.domain([0, this.getMax('statuses_count')]);
       });
       this.svg.selectAll('.dot')
         .data(this.twitterState.tweets)
