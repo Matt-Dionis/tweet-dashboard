@@ -105,11 +105,9 @@ export class ScatterplotComponent {
 
   populate() {
     if (this.twitterState.tweets) {
-      this.twitterState.tweets.forEach((tweet: Tweet) => {
-        this.xScale.domain([0, this.getMax('followers_count')]);
-        this.yScale.domain([0, this.getMax('following_count')]);
-        this.zScale.domain([0, this.getMax('statuses_count')]);
-      });
+      this.xScale.domain([0, this.getMax('followers_count')]);
+      this.yScale.domain([0, this.getMax('following_count')]);
+      this.zScale.domain([0, this.getMax('statuses_count')]);
       this.svg.selectAll('.dot')
         .data(this.twitterState.tweets)
         .enter().append('circle')
