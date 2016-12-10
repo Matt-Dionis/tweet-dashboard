@@ -116,7 +116,10 @@ export class ScatterplotComponent {
           .attr('cx', (d) => this.xScale(d.followers_count))
           .attr('cy', (d) => this.yScale(d.following_count))
           .style('fill', 'blue')
-          .style('opacity', 0.4);
+          .style('opacity', 0.4)
+          .append('title')
+            .text(d => 'Followers: ' + d.followers_count + ', ' +
+              'Following: ' + d.following_count + ', ' + 'Tweets: ' + d.statuses_count);
     }
   }
 }

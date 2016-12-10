@@ -106,6 +106,8 @@ export class MapComponent {
         })
         .attr('r', '4px')
         .style('fill', 'blue')
-        .style('opacity', 0.4);
+        .style('opacity', 0.4)
+        .append('title')
+          .text(d => 'Location: ' + d);
   }
 }
