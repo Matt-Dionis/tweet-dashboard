@@ -1,4 +1,12 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+  trigger,
+  state,
+  style,
+  transition,
+  animate
+} from '@angular/core';
 
 import { Tweet } from '../shared/tweet';
 import { TwitterState } from '../shared/twitterState';
@@ -6,7 +14,19 @@ import { TwitterState } from '../shared/twitterState';
 @Component({
   selector: 'tweet-component',
   templateUrl: './tweet.component.html',
-  styleUrls: ['./tweet.component.css']
+  styleUrls: ['./tweet.component.css'],
+  animations: [
+    trigger('flyInOut', [
+      state('in', style({transform: 'translateX(0)'})),
+      transition('void => *', [
+        style({transform: 'translateX(-100%)'}),
+        animate(600)
+      ]),
+      transition('* => void', [
+        animate(600, style({transform: 'translateX(100%)'}))
+      ])
+    ])
+  ]
 })
 export class TweetComponent {
   @Input()
