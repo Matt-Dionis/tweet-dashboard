@@ -117,6 +117,10 @@ export class ScatterplotComponent {
           .attr('cy', (d) => this.yScale(d.following_count))
           .style('fill', 'blue')
           .style('opacity', 0.4)
+          .style('cursor', 'pointer')
+          .on('click', function(d) {
+            window.open('http://twitter.com/@' + d.username);
+          })
           .append('title')
             .text(d => 'Followers: ' + d.followers_count + ', ' +
               'Following: ' + d.following_count + ', ' + 'Tweets: ' + d.statuses_count);

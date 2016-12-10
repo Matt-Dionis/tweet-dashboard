@@ -89,9 +89,12 @@ export class MapComponent {
       if (tweet.coordinates.length > 0) {
         const lon = tweet.coordinates[1];
         const lat = tweet.coordinates[0];
-        const coords = [lon, lat];
-        if (this.projection(coords)) {
-          this.points.push(this.projection(coords));
+        let location: any = {};
+        location.coords = [lon, lat];
+        location.username = tweet.username;
+        if (this.projection(location.coords)) {
+          location.coords = this.projection(location.coords);
+          this.points.push(location);
         }
       }
     });
@@ -99,15 +102,19 @@ export class MapComponent {
       .data(this.points).enter()
       .append('circle')
         .attr('cx', function(d) {
-          return d[0];
+          return d.coords[0];
         })
         .attr('cy', function(d) {
-          return d[1];
+          return d.coords[1];
         })
         .attr('r', '4px')
         .style('fill', 'blue')
         .style('opacity', 0.4)
+        .style('cursor', 'pointer')
+        .on('click', function(d) {
+          window.open('http://twitter.com/@' + d.username);
+        })
         .append('title')
-          .text(d => 'Location: ' + d);
+          .text(d => 'Location: ' + d.coords);
   }
 }
