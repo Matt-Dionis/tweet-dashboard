@@ -1,14 +1,14 @@
-var express = require('express');
-var http = require('http');
-var path = require('path');
-var twit = require('twitter');
+const express = require('express');
+const http = require('http');
+const path = require('path');
+const twit = require('twitter');
 
-var app = express();
-var mapData = require('./us-states.json');
-var port = process.env.PORT || 3000;
-var router = express.Router();
-var staticRoot = __dirname;
-var twitter = new twit({
+const app = express();
+const mapData = require('./us-states.json');
+const port = process.env.PORT || 3000;
+const router = express.Router();
+const staticRoot = __dirname;
+const twitter = new twit({
   consumer_key: CONSUMER_KEY,
   consumer_secret: CONSUMER_SECRET,
   access_token_key: ACCESS_TOKEN_KEY,
@@ -18,41 +18,39 @@ var twitter = new twit({
 app.set('port', (port));
 app.use(express.static(staticRoot));
 
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
   res.sendFile('index.html');
 });
 
-var server = http.createServer(app).listen(port, function() {
-  console.log('Server listening on port ' + port);
-});
+const server = http.createServer(app).listen(port, () => console.log('Server listening on port ' + port));
 
-var io = require('socket.io').listen(server);
+const io = require('socket.io').listen(server);
 
-app.get('/stream/:searchTerm', function(req, res, next) {
-  var searchTerm = req.params.searchTerm
+app.get('/stream/:searchTerm', (req, res, next) => {
+  const searchTerm = req.params.searchTerm
 
-  twitter.stream('statuses/filter', {track: searchTerm}, function(stream) {
-    stream.on('data', function(data) {
+  twitter.stream('statuses/filter', {track: searchTerm}, (stream) => {
+    stream.on('data', (data) => {
       data.location = data.geo ? data.geo.coordinates : [];
-      var tweet = {
+      const tweet = {
         created_at: data.created_at,
         text: data.text,
-        username: data.user.screen_name,
-        followers_count: data.user.followers_count,
-        following_count: data.user.friends_count,
-        statuses_count: data.user.statuses_count,
-        profile_image_url: data.user.profile_image_url,
+        username: data.user ? data.user.screen_name : '',
+        followers_count: data.user ? data.user.followers_count : '',
+        following_count: data.user ? data.user.friends_count : '',
+        statuses_count: data.user ? data.user.statuses_count : '',
+        profile_image_url: data.user ? data.user.profile_image_url : '',
         coordinates: data.location
       };
       io.emit('tweet', tweet);
     });
 
-    stream.on('error', function(error) {
+    stream.on('error', (error) => {
       throw error;
     });
   });
 });
 
-app.get('/mapData', function(req, res) {
+app.get('/mapData', (req, res) => {
   res.status(200).json({data: mapData});
 });

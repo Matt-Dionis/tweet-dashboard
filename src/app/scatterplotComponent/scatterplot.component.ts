@@ -112,18 +112,19 @@ export class ScatterplotComponent {
         .data(this.twitterState.tweets)
         .enter().append('circle')
           .attr('class', 'dot')
-          .attr('r', (d) => this.zScale(d.statuses_count))
-          .attr('cx', (d) => this.xScale(d.followers_count))
-          .attr('cy', (d) => this.yScale(d.following_count))
+          .attr('r', d => this.zScale(d.statuses_count))
+          .attr('cx', d => this.xScale(d.followers_count))
+          .attr('cy', d => this.yScale(d.following_count))
           .style('fill', 'blue')
           .style('opacity', 0.4)
           .style('cursor', 'pointer')
-          .on('click', function(d) {
-            window.open('http://twitter.com/@' + d.username);
+          .on('click', d => {
+            window.open('http://twitter.com/' + d.username);
           })
           .append('title')
             .text(d => 'Followers: ' + d.followers_count + ', ' +
-              'Following: ' + d.following_count + ', ' + 'Tweets: ' + d.statuses_count);
+              'Following: ' + d.following_count + ', ' +
+              'Tweets: ' + d.statuses_count);
     }
   }
 }

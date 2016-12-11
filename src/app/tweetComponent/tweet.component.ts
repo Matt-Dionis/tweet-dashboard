@@ -35,9 +35,7 @@ export class TweetComponent {
 
   ngOnChanges() {
     if (this.twitterState.tweets) {
-      this.twitterState.tweets.sort(function(a, b) {
-        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-      });
+      this.twitterState.tweets.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
       this.latestTweets = this.twitterState.tweets.slice(0, 10);
     }
   }

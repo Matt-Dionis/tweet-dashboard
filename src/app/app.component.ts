@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
     this._tweetService.setSearchTerm(searchTerm)
       .subscribe(
         () => console.log('search term set'),
-        error =>  this.errorMessage = <any>error
+        error => this.errorMessage = <any>error
       )
   }
 }

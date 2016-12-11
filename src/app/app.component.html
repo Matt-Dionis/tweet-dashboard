@@ -1,6 +1,6 @@
 <label for="term">Track Tweets containing</label>
-<input type="text" id="term" name="term" [(ngModel)]="term" placeholder="search term" required>
-<button (click)="setSearchTerm(term)">Search</button>
+<md-input type="text" id="term" name="term" [(ngModel)]="term" placeholder="search term" required></md-input>
+<button md-raised-button color="primary" (click)="setSearchTerm(term)">Search</button>
 <div class="container">
   <div id="scatterplot">
     <md-card>

@@ -101,18 +101,14 @@ export class MapComponent {
     this.svg.selectAll('circle')
       .data(this.points).enter()
       .append('circle')
-        .attr('cx', function(d) {
-          return d.coords[0];
-        })
-        .attr('cy', function(d) {
-          return d.coords[1];
-        })
+        .attr('cx', d => d.coords[0])
+        .attr('cy', d => d.coords[1])
         .attr('r', '4px')
         .style('fill', 'blue')
         .style('opacity', 0.4)
         .style('cursor', 'pointer')
-        .on('click', function(d) {
-          window.open('http://twitter.com/@' + d.username);
+        .on('click', d => {
+          window.open('http://twitter.com/' + d.username);
         })
         .append('title')
           .text(d => 'Location: ' + d.coords);

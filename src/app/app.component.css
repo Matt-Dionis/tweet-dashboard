@@ -1,5 +1,6 @@
 .container {
   display: flex;
+  margin-top: 10px;
 }
 
 .container > div {
@@ -8,4 +9,8 @@
 
 #scatterplot, #map {
   width: 45%;
+}
+
+#scatterplot {
+  margin-right: 1px;
 }
