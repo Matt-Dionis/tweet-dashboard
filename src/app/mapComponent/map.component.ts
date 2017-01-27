@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input } from '@angular/core';
 import * as D3 from 'd3/index';
+import 'd3-selection-multi';
 import '../rxjs-operators';
 
 import { MapService } from '../shared/map.service';
@@ -41,7 +42,11 @@ export class MapComponent {
   getMapData() {
     this._mapService.getMapData()
       .subscribe(
-        mapData => this.setMap(mapData),
+        mapData => {
+          if (mapData.features) {
+            this.setMap(mapData);
+          }
+        },
         error =>  this.errorMessage = <any>error
       )
   }
@@ -101,16 +106,18 @@ export class MapComponent {
     this.svg.selectAll('circle')
       .data(this.points).enter()
       .append('circle')
-        .attr('cx', d => d.coords[0])
-        .attr('cy', d => d.coords[1])
-        .attr('r', '4px')
-        .style('fill', 'blue')
-        .style('opacity', 0.4)
-        .style('cursor', 'pointer')
-        .on('click', d => {
-          window.open('http://twitter.com/' + d.username);
+        .attrs({
+          cx: d => d.coords[0],
+          cy: d => d.coords[1],
+          r: '4px'
         })
+        .styles({
+          fill: 'blue',
+          opacity: 0.4,
+          cursor: 'pointer'
+        })
+        .on('click', d => window.open(`http://twitter.com/${d.username}`))
         .append('title')
-          .text(d => 'Location: ' + d.coords);
+          .text(d => `Location: ${d.coords}`);
   }
 }
