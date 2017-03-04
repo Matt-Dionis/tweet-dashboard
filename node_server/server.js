@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
   res.sendFile('index.html');
 });
 
-const server = http.createServer(app).listen(port, () => console.log('Server listening on port ' + port));
+const server = http.createServer(app).listen(port, () => console.log(`Server listening on port ${port}`));
 
 const io = require('socket.io').listen(server);
 

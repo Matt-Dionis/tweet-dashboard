@@ -56,7 +56,7 @@ export class ScatterplotComponent {
       .attr('width', this.width + this.margin.left + this.margin.right)
       .attr('height', this.height + this.margin.top + this.margin.bottom)
       .append('g')
-      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+      .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
   }
 
   drawXAxis() {
@@ -65,7 +65,7 @@ export class ScatterplotComponent {
       .tickPadding(15);
     this.svg.append('g')
       .attr('class', 'x axis')
-      .attr('transform', 'translate(0,' + this.height + ')')
+      .attr('transform', `translate(0,${this.height})`)
       .call(this.xAxis)
       .append('text')
         .attr('class', 'label')
@@ -119,12 +119,13 @@ export class ScatterplotComponent {
           .style('opacity', 0.4)
           .style('cursor', 'pointer')
           .on('click', d => {
-            window.open('http://twitter.com/' + d.username);
+            window.open(`http://twitter.com/${d.username}`);
           })
           .append('title')
-            .text(d => 'Followers: ' + d.followers_count + ', ' +
-              'Following: ' + d.following_count + ', ' +
-              'Tweets: ' + d.statuses_count);
+            .text(d => `Followers: ${d.followers_count},
+              Following: ${d.following_count},
+              Tweets: ${d.statuses_count}`
+            );
     }
   }
 }

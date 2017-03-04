@@ -68,7 +68,7 @@ export class MapComponent {
       .attr('width', this.width + this.margin.left + this.margin.right)
       .attr('height', this.height + this.margin.top + this.margin.bottom)
       .append('g')
-      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+      .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
   }
 
   setMap(mapData) {
